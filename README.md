@@ -1,2 +1,3 @@
-# python_CI
-pytestとpyrightでFastAPIのCI環境を作る。
+# fastAPIのCI環境を構築
+pytestとpyrightでFastAPIのCI環境を構築する。
+
