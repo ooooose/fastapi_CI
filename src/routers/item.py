@@ -5,13 +5,13 @@ from sqlalchemy.orm import Session
 from src.models.item import Item
 from src.schemas.item import Item as ItemCreate, ItemOrm
 
-from src.db import get_db
+from src.db import session_factory
 
 router = APIRouter()
 
 
 @router.post("/items", response_model=ItemOrm)
-async def create_item(item_data: ItemCreate, db: Session = Depends(get_db)):
+async def create_item(item_data: ItemCreate, db: Session = Depends(session_factory)):
     """
     Itemを一件Insertするためのエンドポイント
     """
@@ -39,7 +39,7 @@ async def create_item(item_data: ItemCreate, db: Session = Depends(get_db)):
 
 
 @router.post("/item_list", response_model=List[ItemOrm])
-async def create_item_list(item_data_list: List[ItemCreate], db: Session = Depends(get_db)):
+async def create_item_list(item_data_list: List[ItemCreate], db: Session = Depends(session_factory)):
     """
     複数まとめてItemをInsertするためのエンドポイント
     """
@@ -54,7 +54,7 @@ async def create_item_list(item_data_list: List[ItemCreate], db: Session = Depen
 
 
 @router.get("/items", response_model=List[ItemOrm])
-async def get_items(db: Session = Depends(get_db)):
+async def get_items(db: Session = Depends(session_factory)):
     """
     Itemを全件取得するためのエンドポイント
     """
@@ -69,7 +69,7 @@ async def get_items(db: Session = Depends(get_db)):
 
 
 @router.get("/items/{item_id}", response_model=ItemOrm)
-async def get_item(item_id: int, db: Session = Depends(get_db)):
+async def get_item(item_id: int, db: Session = Depends(session_factory)):
     """
     ID指定したItemを取得するエンドポイント
     """
