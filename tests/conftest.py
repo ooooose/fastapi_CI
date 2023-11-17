@@ -7,7 +7,8 @@ from src.db import Base
 @pytest.fixture(scope="function")
 def SessionLocal():
     TEST_DATABASE_URL = "postgresql://postgres:password@postgres-db:5433/postgres"
-    engine = create_engine(TEST_DATABASE_URL, connect_args={"check_same_thread": False})
+    engine = create_engine(TEST_DATABASE_URL)
+
     Base.metadata.create_all(engine)
 
     session_factory = sessionmaker(autocommit=False, autoflush=False, bind=engine)
