@@ -16,3 +16,5 @@ logs:
 ps:
 	docker-compose ps -a
 
+test:
+	docker-compose run --rm app pytest tests
