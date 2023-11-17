@@ -14,7 +14,7 @@ Session = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
 # セッションを依存性として定義
-def session_maker():
+def session_factory():
     session = Session()
     try:
         yield session
