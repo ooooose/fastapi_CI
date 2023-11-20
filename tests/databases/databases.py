@@ -1,5 +1,6 @@
 from src.db import session_factory
 from src.main import app
+from tests.conftest import SessionLocal
 
 def test_database(f):
     def setting_db(SessionLocal, *args, **kwargs):
@@ -14,6 +15,6 @@ def test_database(f):
         app.dependency_overrides[session_factory] = override_get_db
         # Run tests
         f(*args, **kwargs)
-        # get_dbを元に戻す
-        app.dependency_overrides[session_factory] = get_db
+        # session_factoryを元に戻す
+        app.dependency_overrides[session_factory] = session_factory
     return setting_db
