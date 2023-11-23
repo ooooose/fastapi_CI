@@ -12,6 +12,7 @@ Session = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 # モデルを定義するための基本となるBaseクラスを作成
 Base = declarative_base()
 
+
 # セッションを依存性として定義
 def session_factory():
     session = Session()

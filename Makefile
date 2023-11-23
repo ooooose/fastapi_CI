@@ -18,3 +18,6 @@ ps:
 
 test:
 	docker-compose exec app poetry run pytest
+
+fmt:
+	docker-compose exec app poetry run black src tests
