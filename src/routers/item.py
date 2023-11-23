@@ -39,15 +39,20 @@ async def create_item(item_data: ItemCreate, db: Session = Depends(session_facto
 
 
 @router.post("/item_list", response_model=List[ItemOrm])
-async def create_item_list(item_data_list: List[ItemCreate], db: Session = Depends(session_factory)):
+async def create_item_list(
+    item_data_list: List[ItemCreate], db: Session = Depends(session_factory)
+):
     """
     複数まとめてItemをInsertするためのエンドポイント
     """
 
-    item_list = [Item(
-        name=item.name,
-        description=item.description,
-    ) for item in item_data_list]
+    item_list = [
+        Item(
+            name=item.name,
+            description=item.description,
+        )
+        for item in item_data_list
+    ]
     db.add_all(item_list)
     db.commit()
     return item_list

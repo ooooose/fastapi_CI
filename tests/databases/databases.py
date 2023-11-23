@@ -20,10 +20,15 @@ from sqlalchemy.orm import sessionmaker
 #         app.dependency_overrides[session_factory] = session_factory
 #     return setting_db
 
+
 def override_session_factory():
     TEST_DATABASE_URL = "postgresql://postgres:password@postgres-db:5432/postgres"
-    engine = create_engine(url=TEST_DATABASE_URL, echo=False, pool_recycle=10, isolation_level="AUTOCOMMIT")
-    SessionLocal = sessionmaker(autocommit=False, autoflush=True, expire_on_commit=False, bind=engine)
+    engine = create_engine(
+        url=TEST_DATABASE_URL, echo=False, pool_recycle=10, isolation_level="AUTOCOMMIT"
+    )
+    SessionLocal = sessionmaker(
+        autocommit=False, autoflush=True, expire_on_commit=False, bind=engine
+    )
 
     session = SessionLocal()
 
