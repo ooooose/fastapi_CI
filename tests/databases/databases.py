@@ -1,5 +1,3 @@
-from src.db import session_factory
-from src.main import app
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 

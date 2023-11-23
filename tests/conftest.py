@@ -1,10 +1,6 @@
 import pytest
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, scoped_session
-from sqlalchemy_utils import database_exists, drop_database
-from src.db import Base
-
-"""使用していないが、後で確認する"""
+from sqlalchemy.orm import sessionmaker
 
 
 @pytest.fixture(scope="session")
