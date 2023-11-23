@@ -17,4 +17,4 @@ ps:
 	docker-compose ps -a
 
 test:
-	docker-compose run --rm app pytest tests
+	docker-compose exec app poetry run pytest
