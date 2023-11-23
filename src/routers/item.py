@@ -16,7 +16,7 @@ async def create_item(item_data: ItemCreate, db: Session = Depends(session_facto
     Itemを一件Insertするためのエンドポイント
     """
 
-    item = Item(**item_data.dict())
+    item = Item(**item_data.model_dump())
     # データの追加
     db.add(item)
     # データの登録
