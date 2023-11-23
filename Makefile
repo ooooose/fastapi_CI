@@ -21,3 +21,6 @@ test:
 
 fmt:
 	docker-compose exec app poetry run black src tests
+
+lint:
+	docker-compose exec app poetry run flake8
