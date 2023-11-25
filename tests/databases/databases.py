@@ -1,5 +1,6 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+from src.db import Base
 
 # def test_database(f):
 #     def setting_db(SessionLocal, *args, **kwargs):
@@ -19,8 +20,9 @@ from sqlalchemy.orm import sessionmaker
 #     return setting_db
 
 
+
 def override_session_factory():
-    TEST_DATABASE_URL = "postgresql://postgres:password@postgres-db:5432/postgres"
+    TEST_DATABASE_URL = "postgresql://postgres-test:password@postgres-db-test:5432/postgres-test"
     engine = create_engine(
         url=TEST_DATABASE_URL, echo=False, pool_recycle=10, isolation_level="AUTOCOMMIT"
     )
@@ -28,9 +30,11 @@ def override_session_factory():
         autocommit=False, autoflush=True, expire_on_commit=False, bind=engine
     )
 
-    session = SessionLocal()
+    Base.metadata.create_all(engine)
 
+    session = SessionLocal()
     try:
         yield session
     finally:
         session.close()
+
