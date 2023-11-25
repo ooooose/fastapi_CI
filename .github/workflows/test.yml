@@ -4,8 +4,8 @@ on: [push]
 
 env:
   DEBUG: "True"
-  POSTGRES_NAME: postgres-db-test
-  POSTGRES_USER: postgres-test
+  POSTGRES_NAME: postgres-db
+  POSTGRES_USER: postgres
   POSTGRES_PASSWORD: password
 
 jobs:
