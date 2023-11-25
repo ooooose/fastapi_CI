@@ -2,18 +2,24 @@ name: Pytest
 
 on: [push]
 
+env:
+  DEBUG: "True"
+  POSTGRES_NAME: postgres-db-test
+  POSTGRES_USER: postgres-test
+  POSTGRES_PASSWORD: password
+
 jobs:
   test:
     runs-on: ubuntu-latest
     name: Test
 
     services:
-      postgres:
-        image: postgres:15
+      db:
+        image: postgres:15.4
         env:
-          POSTGRES_USER: postgres-test
-          POSTGRES_PASSWORD: password
-          POSTGRES_DB: postgres-db-test
+          POSTGRES_NAME: ${{ env.POSTGRES_NAME }}
+          POSTGRES_USER: ${{ env.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ env.POSTGRES_PASSWORD }}
         ports:
           - 5432:5432
         options: >-
@@ -26,27 +32,17 @@ jobs:
       - name: Check out source repository
         uses: actions/checkout@v4
 
-      - name: Set up python
+      - name: Install poetry
+        uses: pipx install poetry
+
+      - name: Use cache dependencies
         uses: actions/setup-python@v4
         with:
           python-version: "3.11"
-
-      - name: Cache Python cache
-        uses: actions/cache@v3
-        id: poetry_cache_id
-        with:
-          path: .venv
-          key: venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
-
-      - name: Install Pip
-        run: python -m pip install --upgrade pip
-
-      - name: Install Poetry
-        run:  pip install poetry
+          cache: 'poetry'
 
       - name: install dependencies
-        if: steps.poetry_cache_id.outputs.cache-hit != 'true'
-        run: poetry install --no-root
+        run: poetry install
 
       - name: pytest run
         run: poetry run pytest
