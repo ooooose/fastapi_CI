@@ -6,6 +6,7 @@ env:
   DEBUG: "True"
   POSTGRES_USER: postgres-test
   POSTGRES_PASSWORD: password
+  POSTGRES_DB: postgres-test
 
 jobs:
   test:
@@ -18,11 +19,12 @@ jobs:
         env:
           POSTGRES_USER: ${{ env.POSTGRES_USER }}
           POSTGRES_PASSWORD: ${{ env.POSTGRES_PASSWORD }}
+          POSTGRES_DB: ${{ env.POSTGRES_DB }}
         ports:
           - 5432:5432
         options: >-
-          --name db-test
-          --hostname db-test
+          --name postgres-db-test
+          --hostname postgres-db-test
           --health-cmd pg_isready
           --health-interval 10s
           --health-timeout 5s
