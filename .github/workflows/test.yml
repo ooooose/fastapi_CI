@@ -10,6 +10,7 @@ jobs:
     services:
       postgres:
         image: postgres:15.4
+        container_name: postgres-db-test
         env:
           POSTGRES_USER: postgres-test
           POSTGRES_PASSWORD: password
@@ -40,9 +41,7 @@ jobs:
 
       - name: install dependencies
         if: steps.poetry_cache_id.outputs.cache-hit != 'true'
-        run: |
-          poetry install --no-root
+        run: poetry install --no-root
 
       - name: pytest run
-        run: |
-          poetry run pytest
+        run: poetry run pytest
