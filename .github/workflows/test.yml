@@ -9,10 +9,11 @@ jobs:
 
     services:
       postgres:
-        image: postgres:15.4
+        image: postgres:15
         env:
           POSTGRES_USER: postgres-test
           POSTGRES_PASSWORD: password
+          POSTGRES_DB: postgres-db-test
         ports:
           - 5432:5432
         options: >-
