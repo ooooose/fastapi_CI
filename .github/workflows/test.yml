@@ -14,10 +14,9 @@ jobs:
     name: Test
 
     services:
-      db:
+      db-test:
         image: postgres:15.4
         env:
-          POSTGRES_HOST: postgres-db-test
           POSTGRES_USER: ${{ env.POSTGRES_USER }}
           POSTGRES_PASSWORD: ${{ env.POSTGRES_PASSWORD }}
           POSTGRES_DB: ${{ env.POSTGRES_DB }}
@@ -46,4 +45,6 @@ jobs:
         run: poetry install
 
       - name: pytest run
-        run: poetry run pytest
+        run: | 
+          cp tests/databases/databases_ci.py tests/databases/databases.py
+          poetry run pytest
