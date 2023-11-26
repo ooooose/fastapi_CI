@@ -1,0 +1,50 @@
+name: Pytest
+
+on: [push]
+
+env:
+  DEBUG: "True"
+  POSTGRES_USER: postgres-test
+  POSTGRES_PASSWORD: password
+  POSTGRES_DB: postgres-test
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    name: Test
+
+    services:
+      db-test:
+        image: postgres:15.4
+        env:
+          POSTGRES_USER: ${{ env.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ env.POSTGRES_PASSWORD }}
+          POSTGRES_DB: ${{ env.POSTGRES_DB }}
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Check out source repository
+        uses: actions/checkout@v4
+
+      - name: Install poetry
+        run: pipx install poetry
+
+      - name: Use cache dependencies
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+          cache: 'poetry'
+
+      - name: install dependencies
+        run: poetry install
+
+      - name: pytest run
+        run: | 
+          cp tests/databases/databases_ci.py tests/databases/databases.py
+          poetry run pytest
