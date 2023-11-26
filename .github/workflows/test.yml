@@ -17,14 +17,13 @@ jobs:
       db:
         image: postgres:15.4
         env:
+          POSTGRES_HOST: localhost
           POSTGRES_USER: ${{ env.POSTGRES_USER }}
           POSTGRES_PASSWORD: ${{ env.POSTGRES_PASSWORD }}
           POSTGRES_DB: ${{ env.POSTGRES_DB }}
         ports:
           - 5432:5432
         options: >-
-          --name postgres-db-test
-          --hostname postgres-db-test
           --health-cmd pg_isready
           --health-interval 10s
           --health-timeout 5s
