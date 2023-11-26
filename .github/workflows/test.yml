@@ -42,7 +42,7 @@ jobs:
           cache: 'poetry'
 
       - name: install dependencies
-        run: poetry install
+        run: poetry install --no-root
 
       - name: pytest run
         run: | 
