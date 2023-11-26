@@ -17,7 +17,7 @@ jobs:
       db:
         image: postgres:15.4
         env:
-          POSTGRES_HOST: localhost
+          POSTGRES_HOST: postgres-db-test
           POSTGRES_USER: ${{ env.POSTGRES_USER }}
           POSTGRES_PASSWORD: ${{ env.POSTGRES_PASSWORD }}
           POSTGRES_DB: ${{ env.POSTGRES_DB }}
