@@ -1,7 +1,7 @@
 from starlette.testclient import TestClient
 from src.main import app
 from fastapi import status
-from tests.databases.databases import override_session_factory
+from tests.conftest import override_session_factory
 from src.db import session_factory
 
 client = TestClient(app)
