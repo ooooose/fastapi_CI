@@ -46,5 +46,5 @@ jobs:
 
       - name: pytest run
         run: | 
-          cp tests/databases/databases_ci.py tests/databases/databases.py
+          cp tests/conftest_ci.py tests/conftest.py
           poetry run pytest
