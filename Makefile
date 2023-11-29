@@ -10,6 +10,9 @@ down:
 shell:
 	docker-compose exec app bash
 
+install:
+	docker-compose exec app poetry install
+
 logs:
 	docker-compose logs -f app
 
