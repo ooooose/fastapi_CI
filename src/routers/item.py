@@ -24,17 +24,6 @@ async def create_item(item_data: ItemCreate, db: Session = Depends(session_facto
     # 一時データのリフレッシュ
     db.refresh(item)
 
-    """
-    以下のようにトランザクションを明確に張ることも可能。
-    一件の処理では上記で足りるが、複数処理が絡みデータの整合性を担保するために下記のように実装することもある。
-    ブロックを抜けると自動的にcloseされたことになり、flush()で一時送信していたデータが保存される。
-
-    with db as session:
-        item = Item(**item_data.dict())
-        print(session)
-        session.add(item)
-        session.flush()
-    """
     return item
 
 
@@ -64,12 +53,8 @@ async def get_items(db: Session = Depends(session_factory)):
     Itemを全件取得するためのエンドポイント
     """
 
-    # 複数取得の場合はscalars()を使用する。
     items = db.scalars(select(Item)).all()
-    """
-    もしくは以下のように記載してもOk。
-    items = db.execute(select(Item)).scalars().all()
-    """
+
     return items
 
 
@@ -79,12 +64,6 @@ async def get_item(item_id: int, db: Session = Depends(session_factory)):
     ID指定したItemを取得するエンドポイント
     """
 
-    """
-    一件取得の場合は、scalar()で取得可能
-    以下と同じ結果となる。
-    item = db.execute(select(Item).where(Item.id == item_id)).scalar()
-    item = db.scalars(select(Item).where(Item.id == item_id)).first()
-    """
     item = db.scalar(select(Item).where(Item.id == item_id))
     if item is None:
         raise HTTPException(status_code=404, detail="Item not found")
