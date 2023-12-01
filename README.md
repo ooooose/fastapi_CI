@@ -36,7 +36,7 @@ make shell
 cd src/databases
 
 ③alembicコマンドの実行
-poerty run alembic upgrade head
+poetry run alembic upgrade head
 
 ```
 ## テスト実行
