@@ -1,6 +1,6 @@
 # fastAPIのCI環境を構築
 pytestとflake8、blackを使用してFastAPIのCI環境を構築。<br />
-Qiita記事のために作成したリポジトリです。<br />
+[FastAPIのCI環境を構築してみた（FastAPI・pytest・flake8・Black・GithubActions）(Qiita記事)](https://qiita.com/yuuki_0524/items/80006761f203c72bd6c5)用に作成したリポジトリです。<br />
 
 
 ## 技術詳細
